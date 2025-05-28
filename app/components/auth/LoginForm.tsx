@@ -16,7 +16,7 @@ export default function LoginForm() {
         try {
             const data = await login(email, password);
             Cookies.set("token", data.access_token);
-            router.push("/users/list");
+            router.push("/user/list");
         } catch (err) {
             alert("Error al iniciar sesión");
         }
