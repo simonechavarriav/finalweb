@@ -1,13 +1,29 @@
-import axios from "axios"
-import { TestResult } from "../schemas/testResult"
+import axios from "axios";
+import { TestResult } from "../schemas/testResult";
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL
+const baseURL = process.env.NEXT_PUBLIC_API_URL;
+
+interface APIResponseTestResult {
+    id: string;
+    reaction: string;
+    rating: number;
+    survival_status: boolean;
+    product?: {
+        id: string;
+        name: string;
+    };
+    user?: {
+        id: string;
+        name: string;
+    };
+}
 
 export async function getTestResults(): Promise<TestResult[]> {
     try {
-        const response = await axios.get(`${baseURL}/product-tests`)
-        const { data } = response
-        return data.map((testResult: any) => ({
+        const response = await axios.get(`${baseURL}/product-tests`);
+        const { data } = response;
+
+        return data.map((testResult: APIResponseTestResult) => ({
             id: testResult.id,
             reaction: testResult.reaction,
             rating: testResult.rating,
@@ -16,8 +32,8 @@ export async function getTestResults(): Promise<TestResult[]> {
             userId: testResult.user?.id || "Desconocido",
             productName: testResult.product?.name,
             userName: testResult.user?.name,
-        }))
-    } catch (error) {
-        throw new Error("It was not possible to connect")
+        }));
+    } catch {
+        throw new Error("It was not possible to connect");
     }
 }

@@ -8,7 +8,7 @@ export async function getProducts(): Promise<Product[]> {
         const response = await axios.get(`${baseURL}/makeup-products`)
         const { data } = response
         return data
-    } catch (error) {
+    } catch {
         throw new Error("It was not possible to connect")
     }
 }

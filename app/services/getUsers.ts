@@ -8,7 +8,7 @@ export async function getUsers(): Promise<User[]> {
         const response = await axios.get(`${baseURL}/users`)
         const { data } = response
         return data
-    } catch (error) {
+    } catch {
         throw new Error("It was not possible to connect")
     }
 }
